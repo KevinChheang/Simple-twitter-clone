@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if session["user_id"] %}
+    <div class="text-center">
+        <h1>List of tweets</h1>
+        <ul class="list-group text-left">
+        {% for tweet in tweets %}
+            <li class="list-group-item">({{tweet.user.username}}) {{tweet.tweet}} 
+                {% if session["username"] == tweet.user.username %}
+                <form style="display: inline;" action="/tweets/delete/{{tweet.id}}" method="POST">
+                    <button class="btn btn-danger btn-sm">X</button>
+                </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+
+        <a href="/tweets" class="btn btn-success mt-2">New Tweet</a>
+    </div>
+{% endif %}
+
+{% endblock %}

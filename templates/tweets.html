@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if session["user_id"] %}
+    <h1 class="text-center">Tweet</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        {% for field in form
+        if field.widget.input_type != 'hidden' %}
+        <div class="form-group">
+            {{ field(class_="form-control") }}
+            {% for error in field.errors %}
+            {{ error }}
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-primary">Tweet</button>
+    </form>
+{% endif %}
+
+{% endblock %}
